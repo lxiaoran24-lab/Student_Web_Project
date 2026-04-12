@@ -1,15 +1,12 @@
 import csv
 import subprocess
 from pathlib import Path
-
+import os
+import platform
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMP_DIR = BASE_DIR / "temp_files"
 TEMP_DIR.mkdir(exist_ok=True)
-
-# 这里改成你电脑上真实的 Rscript.exe 路径
-import os
-import platform
 
 # 如果是 Windows 系统，用你本地的路径
 if platform.system() == "Windows":
@@ -17,7 +14,6 @@ if platform.system() == "Windows":
 # 如果是 Linux 系统（即 Render 服务器），直接用命令
 else:
     RSCRIPT_PATH = "Rscript"
-
 
 def score_to_level(score: float) -> str:
     if score >= 90:
@@ -30,13 +26,8 @@ def score_to_level(score: float) -> str:
         return "待提升"
     return "需关注"
 
-
 def _run_r_script(script_path: Path, csv_path: Path) -> float:
-    if not RSCRIPT_PATH.exists():
-        raise RuntimeError(
-            f"找不到 Rscript.exe：{RSCRIPT_PATH}\n"
-            f"请检查 R 是否安装，或者把 RSCRIPT_PATH 改成你电脑上的真实路径。"
-        )
+    # 注意：这里已经删除了对 RSCRIPT_PATH 的 exists() 检查
 
     if not script_path.exists():
         raise RuntimeError(f"找不到 R 脚本：{script_path}")
@@ -66,7 +57,6 @@ def _run_r_script(script_path: Path, csv_path: Path) -> float:
             f"{script_path.name} 输出不是数字：\n{output}\n\nSTDERR:\n{result.stderr}"
         )
 
-
 def run_health_model(health_data: dict) -> dict:
     csv_path = TEMP_DIR / "temp_health_input.csv"
     script_path = BASE_DIR / "r_models" / "health_predict.R"
@@ -93,7 +83,6 @@ def run_health_model(health_data: dict) -> dict:
         "level": score_to_level(score),
         "module": "health"
     }
-
 
 def run_psych_model(psych_data: dict) -> dict:
     csv_path = TEMP_DIR / "temp_psych_input.csv"
