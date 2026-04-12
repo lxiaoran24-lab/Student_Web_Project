@@ -8,7 +8,15 @@ TEMP_DIR = BASE_DIR / "temp_files"
 TEMP_DIR.mkdir(exist_ok=True)
 
 # 这里改成你电脑上真实的 Rscript.exe 路径
-RSCRIPT_PATH = Path(r"E:\R-4.5.1\bin\Rscript.exe")
+import os
+import platform
+
+# 如果是 Windows 系统，用你本地的路径
+if platform.system() == "Windows":
+    RSCRIPT_PATH = "E:\\R-4.5.1\\bin\\Rscript.exe"
+# 如果是 Linux 系统（即 Render 服务器），直接用命令
+else:
+    RSCRIPT_PATH = "Rscript"
 
 
 def score_to_level(score: float) -> str:
