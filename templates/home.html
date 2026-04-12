@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block content %}
+<div class="container-narrow">
+    <section class="hero-card">
+        <div class="header">
+            <div class="header-badge">项目首页</div>
+            <h2>欢迎使用学生状态综合评估系统</h2>
+            <p>通过分步填写问卷，系统将对你的学业、消费、身体健康、心理状态和未来发展方向进行综合分析。</p>
+        </div>
+
+        <div class="intro-grid">
+            <div class="intro-block">
+                <h3>系统包含</h3>
+                <ul class="plain-list">
+                    <li>学业表现评估</li>
+                    <li>消费结构评估</li>
+                    <li>身体健康评估</li>
+                    <li>心理状态评估</li>
+                    <li>未来发展与专业相似度分析</li>
+                    <li>未来发展准备度与职业方向建议</li>
+                </ul>
+            </div>
+
+            <div class="intro-block">
+                <h3>当前版本说明</h3>
+                <ul class="plain-list">
+                    <li>当前为公开演示版，无需登录即可使用</li>
+                    <li>适合展示完整评估与报告流程</li>
+                    <li>结果可立即查看，但暂不做个人历史记录长期保存</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="result-actions center">
+            <a class="btn primary" href="{{ url_for('assessment_start') }}">开始评估</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+.History
+temp_files/
+*.csv
+student_system.db
+instance/
+.env
+.venv/
+venv/

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.History
+temp_files/
+student_system.db
+instance/
+.venv/
+venv/
+.git/
+.gitignore

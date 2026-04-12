@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}多源学生状态评估系统{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="site-shell">
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div class="brand">
+                    <span class="brand-badge">Student Status Assessment</span>
+                    <h1>多源学生状态评估系统</h1>
+                    <p>基于学业、消费、身体、心理与未来发展方向的综合评估</p>
+                </div>
+                <nav class="nav">
+                    <a href="{{ url_for('home') }}">首页</a>
+                    <a href="{{ url_for('assessment_start') }}">开始评估</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="page-container">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

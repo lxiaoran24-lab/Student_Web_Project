@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}学业评估{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <div class="header-badge">在线评估</div>
+        <h2>学业模块</h2>
+        <p>请根据你近期的真实学习情况填写</p>
+    </div>
+
+    <div class="section-header"><h2>第一部分</h2></div>
+
+    <div class="progress-row">
+        <span class="progress-label">第 1 步 / 共 5 步</span>
+        <span class="tag">学业表现</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 20%;"></div>
+    </div>
+
+    <form method="post">
+        <div class="q-card">
+            <p class="q-text">请填写你的学业基本情况</p>
+
+            <label class="field-label">GPA（满分 4.00）</label>
+            <input class="input-field" type="number" step="0.01" min="0" max="4" name="gpa" value="{{ data.get('gpa', '') }}" required>
+
+            <label class="field-label">单科成绩平均（0-100）</label>
+            <input class="input-field" type="number" step="0.01" min="0" max="100" name="average_score" value="{{ data.get('average_score', '') }}" required>
+
+            <label class="field-label">班级 / 年级排名百分比（1-100，数字越小越靠前）</label>
+            <input class="input-field" type="number" step="0.01" min="1" max="100" name="rank_percent" value="{{ data.get('rank_percent', '') }}" required>
+
+            <label class="field-label">挂科率（0-100）</label>
+            <input class="input-field" type="number" step="0.01" min="0" max="100" name="fail_rate" value="{{ data.get('fail_rate', '') }}" required>
+            <p class="input-hint">例如没有挂科填 0；如果大约五分之一课程挂科，可填 20。</p>
+
+            <label class="field-label">每周专注学习时长（小时）</label>
+            <input class="input-field" type="number" step="0.1" min="0" max="100" name="focus_hours" value="{{ data.get('focus_hours', '') }}" required>
+
+            <label class="field-label">学习计划执行情况（0-100）</label>
+            <input class="input-field" type="number" min="0" max="100" name="study_plan" value="{{ data.get('study_plan', '') }}" required>
+
+            <label class="field-label">笔记质量（0-100）</label>
+            <input class="input-field" type="number" min="0" max="100" name="note_quality" value="{{ data.get('note_quality', '') }}" required>
+
+            <label class="field-label">复习频率（0-100）</label>
+            <input class="input-field" type="number" min="0" max="100" name="review_freq" value="{{ data.get('review_freq', '') }}" required>
+
+            <label class="field-label">是否参与科研项目</label>
+            <select class="input-field" name="research_participation" required>
+                <option value="1" {% if data.get('research_participation') == '1' %}selected{% endif %}>是</option>
+                <option value="0" {% if data.get('research_participation') == '0' %}selected{% endif %}>否</option>
+            </select>
+
+            <label class="field-label">竞赛成果（0-100）</label>
+            <input class="input-field" type="number" min="0" max="100" name="competition_result" value="{{ data.get('competition_result', '') }}" required>
+
+            <label class="field-label">学术讲座参与频率（0-100）</label>
+            <input class="input-field" type="number" min="0" max="100" name="lecture_frequency" value="{{ data.get('lecture_frequency', '') }}" required>
+
+            <label class="field-label">选修课程难度（0-100）</label>
+            <input class="input-field" type="number" min="0" max="100" name="elective_difficulty" value="{{ data.get('elective_difficulty', '') }}" required>
+        </div>
+
+        <div class="actions">
+            <a class="btn" href="{{ url_for('assessment_reset') }}">重新开始</a>
+            <button class="btn primary" type="submit">下一页 →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

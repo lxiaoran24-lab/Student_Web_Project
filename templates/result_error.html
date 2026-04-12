@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}生成报告失败{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <div class="header-badge">错误提示</div>
+        <h2>生成报告失败</h2>
+        <p>后端在计算模型时发生了错误，下面是具体报错信息。</p>
+    </div>
+
+    <div class="section-card">
+        <p class="section-card-title">错误详情</p>
+        <pre style="white-space: pre-wrap; line-height: 1.7; font-size: 13px;">{{ error_message }}</pre>
+    </div>
+
+    <div class="result-actions left">
+        <a class="btn" href="{{ url_for('assessment_future') }}">返回上一步</a>
+        <a class="btn primary" href="{{ url_for('assessment_reset') }}">重新开始</a>
+    </div>
+</div>
+{% endblock %}

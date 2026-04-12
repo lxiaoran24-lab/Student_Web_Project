@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}评估结果总览{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <div class="header-badge">测评结果</div>
+        <h2>评估结果总览</h2>
+        <p>这里展示你的核心分数概览，完整文字报告请进入专属报告页查看。</p>
+    </div>
+
+    <div class="result-hero">
+        <div class="result-icon">📊</div>
+        <p class="result-level">综合得分：{{ result.overall_score }}</p>
+        <p class="result-sub">系统已完成各维度综合计算</p>
+    </div>
+
+    <div class="score-grid">
+        <div class="score-cell">
+            <div class="score-cell-label">学业得分</div>
+            <div class="score-cell-val">{{ result.academic_score }}</div>
+        </div>
+        <div class="score-cell">
+            <div class="score-cell-label">消费得分</div>
+            <div class="score-cell-val">{{ result.consumption_score }}</div>
+        </div>
+        <div class="score-cell">
+            <div class="score-cell-label">身体得分</div>
+            <div class="score-cell-val">{{ result.health_score }}</div>
+        </div>
+        <div class="score-cell">
+            <div class="score-cell-label">心理得分</div>
+            <div class="score-cell-val">{{ result.psychology_score }}</div>
+        </div>
+        <div class="score-cell">
+            <div class="score-cell-label">专业相似度</div>
+            <div class="score-cell-val">{{ result.future_score }}</div>
+        </div>
+        <div class="score-cell">
+            <div class="score-cell-label">发展准备度</div>
+            <div class="score-cell-val">{{ result.future_readiness_score }}</div>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <p class="section-card-title">结果摘要</p>
+        <p class="section-card-body">{{ result.summary }}</p>
+    </div>
+
+    <div class="section-card">
+        <p class="section-card-title">未来发展概览</p>
+        <p class="section-card-body">
+            目标方向所属门类：{{ result.target_category_name }}<br>
+            专业相似度：{{ result.future_score }} 分<br>
+            未来发展准备度：{{ result.future_readiness_score }} 分
+        </p>
+
+        {% if result.career_recommendations %}
+        <p class="section-card-title" style="margin-top: 12px;">推荐关注的职业方向</p>
+        <ul class="result-list">
+            {% for item in result.career_recommendations %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="result-actions">
+        <a class="btn" href="{{ url_for('assessment_reset') }}">重新填写</a>
+        <a class="btn primary" href="{{ url_for('report') }}">查看完整报告</a>
+    </div>
+</div>
+{% endblock %}

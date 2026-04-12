@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}专属文字报告{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <div class="header-badge">专属报告</div>
+        <h2>文字评估报告</h2>
+        <p>点击每个模块标题可展开或收起详细分析内容。</p>
+    </div>
+
+    <div class="accordion-wrap">
+
+        <details class="report-card" open>
+            <summary class="report-summary">
+                <span>一、综合评估</span>
+                <span class="report-tag">总览</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.overall_summary_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>二、学业维度详细评估</span>
+                <span class="report-tag">学业 {{ result.academic_score }}</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.academic_report_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>三、消费维度详细评估</span>
+                <span class="report-tag">消费 {{ result.consumption_score }}</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.consumption_report_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>四、身体健康维度详细评估</span>
+                <span class="report-tag">身体 {{ result.health_score }}</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.health_report_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>五、心理健康维度详细评估</span>
+                <span class="report-tag">心理 {{ result.psychology_score }}</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.psychology_report_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>六、学业与心理联动建议</span>
+                <span class="report-tag">建议</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.combo_report_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>七、未来发展分析</span>
+                <span class="report-tag">发展</span>
+            </summary>
+            <div class="report-body">
+                <p><strong>目标方向门类：</strong>{{ result.target_category_name }}</p>
+                <p><strong>专业相似度：</strong>{{ result.future_score }}</p>
+                <p><strong>发展准备度：</strong>{{ result.future_readiness_score }}</p>
+
+                {% if result.career_recommendations %}
+                <p style="margin-top: 12px;"><strong>推荐职业方向：</strong></p>
+                <ul class="result-list">
+                    {% for item in result.career_recommendations %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if result.future_details %}
+                <p style="margin-top: 12px;"><strong>专业相似度细节：</strong></p>
+                <ul class="result-list">
+                    {% for item in result.future_details %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <p style="margin-top: 12px;">{{ result.future_report_text }}</p>
+            </div>
+        </details>
+
+        <details class="report-card">
+            <summary class="report-summary">
+                <span>八、结果摘要</span>
+                <span class="report-tag">摘要</span>
+            </summary>
+            <div class="report-body">
+                <p>{{ result.summary }}</p>
+            </div>
+        </details>
+
+    </div>
+
+    <div class="result-actions">
+        <a class="btn" href="{{ url_for('result') }}">返回结果总览</a>
+        <a class="btn primary" href="{{ url_for('assessment_reset') }}">重新评估</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}身体健康评估{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <div class="header-badge">在线评估</div>
+        <h2>身体健康模块</h2>
+        <p>按你的日常情况填写，系统会自动换算 BMI 等指标</p>
+    </div>
+
+    <div class="section-header"><h2>第三部分</h2></div>
+
+    <div class="progress-row">
+        <span class="progress-label">第 3 步 / 共 5 步</span>
+        <span class="tag">身体健康</span>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: 60%;"></div>
+    </div>
+
+    <form method="post">
+        <div class="q-card">
+            <p class="q-text">请填写你的身体和运动情况</p>
+
+            <label class="field-label">年龄</label>
+            <input class="input-field" type="number" step="1" min="0" name="age" value="{{ data.get('age', '') }}" required>
+
+            <label class="field-label">性别</label>
+            <select class="input-field" name="gender" required>
+                <option value="">请选择</option>
+                <option value="男" {% if data.get('gender') == '男' %}selected{% endif %}>男</option>
+                <option value="女" {% if data.get('gender') == '女' %}selected{% endif %}>女</option>
+            </select>
+
+            <label class="field-label">身高（cm）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="height_cm" value="{{ data.get('height_cm', '') }}" required>
+
+            <label class="field-label">体重（kg）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="weight_kg" value="{{ data.get('weight_kg', '') }}" required>
+
+            <label class="field-label">平时最常见的运动类型</label>
+            <select class="input-field" name="activity_type_name" required>
+                <option value="">请选择</option>
+                <option value="几乎不运动" {% if data.get('activity_type_name') == '几乎不运动' %}selected{% endif %}>几乎不运动</option>
+                <option value="步行/散步" {% if data.get('activity_type_name') == '步行/散步' %}selected{% endif %}>步行 / 散步</option>
+                <option value="跑步/有氧" {% if data.get('activity_type_name') == '跑步/有氧' %}selected{% endif %}>跑步 / 有氧</option>
+                <option value="力量训练" {% if data.get('activity_type_name') == '力量训练' %}selected{% endif %}>力量训练</option>
+                <option value="球类运动" {% if data.get('activity_type_name') == '球类运动' %}selected{% endif %}>球类运动</option>
+                <option value="综合训练" {% if data.get('activity_type_name') == '综合训练' %}selected{% endif %}>综合训练</option>
+            </select>
+
+            <label class="field-label">每周运动天数</label>
+            <input class="input-field" type="number" step="1" min="0" max="7" name="exercise_days_per_week" value="{{ data.get('exercise_days_per_week', '') }}" required>
+
+            <label class="field-label">每次平均运动时长（分钟）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="duration_minutes" value="{{ data.get('duration_minutes', '') }}" required>
+
+            <label class="field-label">运动强度</label>
+            <select class="input-field" name="intensity_label" required>
+                <option value="">请选择</option>
+                <option value="低" {% if data.get('intensity_label') == '低' %}selected{% endif %}>低（散步、轻量活动）</option>
+                <option value="中" {% if data.get('intensity_label') == '中' %}selected{% endif %}>中（慢跑、普通锻炼）</option>
+                <option value="高" {% if data.get('intensity_label') == '高' %}selected{% endif %}>高（高强度训练、剧烈运动）</option>
+            </select>
+
+            <label class="field-label">平均每天步数</label>
+            <input class="input-field" type="number" step="1" min="0" name="daily_steps" value="{{ data.get('daily_steps', '') }}" required>
+
+            <label class="field-label">平均睡眠时长（小时）</label>
+            <input class="input-field" type="number" step="0.01" min="0" max="24" name="sleep_hours" value="{{ data.get('sleep_hours', '') }}" required>
+
+            <label class="field-label">最近一段时间的压力水平（1-10）</label>
+            <input class="input-field" type="number" step="1" min="1" max="10" name="stress_level" value="{{ data.get('stress_level', '') }}" required>
+
+            <label class="field-label">你每天大约喝几杯水</label>
+            <input class="input-field" type="number" step="1" min="0" max="20" name="cups_per_day" value="{{ data.get('cups_per_day', '') }}" required>
+
+            <label class="field-label">是否吸烟</label>
+            <select class="input-field" name="smoking_status_text" required>
+                <option value="">请选择</option>
+                <option value="否" {% if data.get('smoking_status_text') == '否' %}selected{% endif %}>否</option>
+                <option value="是" {% if data.get('smoking_status_text') == '是' %}selected{% endif %}>是</option>
+            </select>
+
+            <label class="field-label">你目前的健康状况</label>
+            <select class="input-field" name="health_condition_label" required>
+                <option value="">请选择</option>
+                <option value="无明显问题" {% if data.get('health_condition_label') == '无明显问题' %}selected{% endif %}>无明显问题</option>
+                <option value="轻微问题" {% if data.get('health_condition_label') == '轻微问题' %}selected{% endif %}>有轻微问题，但不影响日常生活</option>
+                <option value="长期慢性问题" {% if data.get('health_condition_label') == '长期慢性问题' %}selected{% endif %}>有长期慢性问题</option>
+            </select>
+
+            <label class="field-label">你的耐力 / 体测表现</label>
+            <select class="input-field" name="endurance_status" required>
+                <option value="">请选择</option>
+                <option value="不达标" {% if data.get('endurance_status') == '不达标' %}selected{% endif %}>不达标</option>
+                <option value="一般" {% if data.get('endurance_status') == '一般' %}selected{% endif %}>一般</option>
+                <option value="良好" {% if data.get('endurance_status') == '良好' %}selected{% endif %}>良好</option>
+                <option value="优秀" {% if data.get('endurance_status') == '优秀' %}selected{% endif %}>优秀</option>
+            </select>
+
+            <label class="field-label">平均心率（可选，不清楚可留空）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="avg_heart_rate" value="{{ data.get('avg_heart_rate', '') }}">
+
+            <label class="field-label">静息心率（可选，不清楚可留空）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="resting_heart_rate" value="{{ data.get('resting_heart_rate', '') }}">
+
+            <label class="field-label">收缩压（可选，不清楚可留空）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="blood_pressure_systolic" value="{{ data.get('blood_pressure_systolic', '') }}">
+
+            <label class="field-label">舒张压（可选，不清楚可留空）</label>
+            <input class="input-field" type="number" step="0.01" min="0" name="blood_pressure_diastolic" value="{{ data.get('blood_pressure_diastolic', '') }}">
+        </div>
+
+        <div class="actions">
+            <a class="btn" href="{{ url_for('assessment_consumption') }}">← 上一步</a>
+            <button class="btn primary" type="submit">下一页 →</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
