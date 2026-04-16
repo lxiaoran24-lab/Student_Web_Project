@@ -1,54 +1,48 @@
 {% extends "base.html" %}
-
 {% block title %}消费评估{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="header">
-        <div class="header-badge">在线评估</div>
-        <h2>消费模块</h2>
+        <div class="header-badge">在线评估</div><h2>消费模块</h2>
         <p>请尽量按月平均填写，反映你的日常消费结构</p>
     </div>
-
-    <div class="section-header"><h2>第二部分</h2></div>
-
     <div class="progress-row">
-        <span class="progress-label">第 2 步 / 共 5 步</span>
-        <span class="tag">消费结构</span>
+        <span class="progress-label">第 2 步 / 共 5 步</span><span class="tag">消费结构</span>
     </div>
-    <div class="progress-bar">
-        <div class="progress-fill" style="width: 40%;"></div>
-    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width: 40%;"></div></div>
 
     <form method="post">
         <div class="q-card">
             <p class="q-text">请填写你的月度生活支出情况</p>
-
-            <label class="field-label">每月可支配生活费（元）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="living_fee" value="{{ data.get('living_fee', '') }}" required>
-
-            <label class="field-label">每月房租（元，没有填 0）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="rent" value="{{ data.get('rent', '0') }}">
-
-            <label class="field-label">每月饭费（元）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="food" value="{{ data.get('food', '') }}" required>
-
-            <label class="field-label">每月交通支出（元）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="transport" value="{{ data.get('transport', '') }}" required>
-
-            <label class="field-label">每月个人护理支出（元）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="personal_care" value="{{ data.get('personal_care', '0') }}">
-
-            <label class="field-label">每月学习用品 / 办公用品支出（元）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="office_supplies" value="{{ data.get('office_supplies', '0') }}">
-
-            <label class="field-label">每月娱乐支出（元，如聚餐、电影、游戏等）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="entertainment" value="{{ data.get('entertainment', '0') }}">
-
-            <label class="field-label">每月其他支出（元）</label>
-            <input class="input-field" type="number" step="0.01" min="0" name="other_expense" value="{{ data.get('other_expense', '0') }}">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>每月可支配生活费（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="living_fee" value="{{ data.get('living_fee', '') }}" required></td>
+                        <th>每月房租（元，没有填 0）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="rent" value="{{ data.get('rent', '0') }}"></td>
+                    </tr>
+                    <tr>
+                        <th>每月饭费（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="food" value="{{ data.get('food', '') }}" required></td>
+                        <th>每月交通支出（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="transport" value="{{ data.get('transport', '') }}" required></td>
+                    </tr>
+                    <tr>
+                        <th>每月个人护理支出（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="personal_care" value="{{ data.get('personal_care', '0') }}"></td>
+                        <th>每月学习/办公用品支出（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="office_supplies" value="{{ data.get('office_supplies', '0') }}"></td>
+                    </tr>
+                    <tr>
+                        <th>每月娱乐支出（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="entertainment" value="{{ data.get('entertainment', '0') }}"></td>
+                        <th>每月其他支出（元）</th>
+                        <td><input class="input-field" type="number" step="0.01" min="0" name="other_expense" value="{{ data.get('other_expense', '0') }}"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
         <div class="actions">
             <a class="btn" href="{{ url_for('assessment_academic') }}">← 上一步</a>
             <button class="btn primary" type="submit">下一页 →</button>

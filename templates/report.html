@@ -3,15 +3,89 @@
 {% block title %}专属文字报告{% endblock %}
 
 {% block content %}
+{% macro quick_row(label, score, desc) -%}
+<tr>
+    <td data-label="维度">
+        <span class="dimension-tag">
+            <span class="dimension-dot"></span>
+            {{ label }}
+        </span>
+    </td>
+    <td data-label="得分" class="score-num">{{ score }}</td>
+    <td data-label="进度">
+        <div class="meter-track">
+            <div class="meter-fill" style="width: {{ score }}%;"></div>
+        </div>
+    </td>
+    <td data-label="说明">{{ desc }}</td>
+</tr>
+{%- endmacro %}
+
 <div class="container">
     <div class="header">
         <div class="header-badge">专属报告</div>
         <h2>文字评估报告</h2>
-        <p>点击每个模块标题可展开或收起详细分析内容。</p>
+        <p>先看顶部概览，再展开下方各模块查看详细分析内容。</p>
     </div>
 
-    <div class="accordion-wrap">
+    <div class="report-overview-grid">
+        <section class="report-hero-card">
+            <h3>综合评估得分</h3>
+            <div class="report-hero-score">{{ result.overall_score }}</div>
+            <p>{{ result.overall_summary_text }}</p>
 
+            <div class="kpi-chip-row">
+                <span class="kpi-chip">学业 {{ result.academic_score }}</span>
+                <span class="kpi-chip">消费 {{ result.consumption_score }}</span>
+                <span class="kpi-chip">身体 {{ result.health_score }}</span>
+                <span class="kpi-chip">心理 {{ result.psychology_score }}</span>
+            </div>
+        </section>
+
+        <div class="report-side-grid">
+            <section class="report-mini-card">
+                <div class="report-mini-title">目标方向门类</div>
+                <div class="report-mini-value">{{ result.target_category_name }}</div>
+                <div class="report-mini-sub">用于未来发展分析与建议生成</div>
+            </section>
+
+            <section class="report-mini-card">
+                <div class="report-mini-title">未来发展准备度</div>
+                <div class="report-mini-value">{{ result.future_readiness_score }}</div>
+                <div class="report-mini-sub">结合当前状态与未来规划进行综合判断</div>
+            </section>
+        </div>
+    </div>
+
+    <section class="table-card">
+        <div class="table-card-header">
+            <div>
+                <h3 class="card-title">报告前置概览</h3>
+                <p class="table-note">先把关键分数集中看一遍，再阅读下面的详细文字分析。</p>
+            </div>
+        </div>
+
+        <table class="score-overview-table">
+            <thead>
+                <tr>
+                    <th>维度</th>
+                    <th>得分</th>
+                    <th>进度</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ quick_row('学业表现', result.academic_score, '学习投入、成绩与学业状态') }}
+                {{ quick_row('消费结构', result.consumption_score, '消费习惯、预算意识与支出情况') }}
+                {{ quick_row('身体健康', result.health_score, '体质、运动、睡眠与健康情况') }}
+                {{ quick_row('心理状态', result.psychology_score, '情绪压力、心理韧性与状态感受') }}
+                {{ quick_row('专业相似度', result.future_score, '当前专业与目标方向的贴合程度') }}
+                {{ quick_row('发展准备度', result.future_readiness_score, '未来发展所需准备程度') }}
+            </tbody>
+        </table>
+    </section>
+
+    <div class="accordion-wrap">
         <details class="report-card" open>
             <summary class="report-summary">
                 <span>一、综合评估</span>
@@ -83,16 +157,16 @@
                 <p><strong>发展准备度：</strong>{{ result.future_readiness_score }}</p>
 
                 {% if result.career_recommendations %}
-                <p style="margin-top: 12px;"><strong>推荐职业方向：</strong></p>
-                <ul class="result-list">
+                <p class="report-section-title" style="margin-top: 18px;">推荐职业方向</p>
+                <div class="chip-wrap">
                     {% for item in result.career_recommendations %}
-                    <li>{{ item }}</li>
+                    <span class="chip">{{ item }}</span>
                     {% endfor %}
-                </ul>
+                </div>
                 {% endif %}
 
                 {% if result.future_details %}
-                <p style="margin-top: 12px;"><strong>专业相似度细节：</strong></p>
+                <p class="report-section-title" style="margin-top: 18px;">专业相似度细节</p>
                 <ul class="result-list">
                     {% for item in result.future_details %}
                     <li>{{ item }}</li>
@@ -100,7 +174,7 @@
                 </ul>
                 {% endif %}
 
-                <p style="margin-top: 12px;">{{ result.future_report_text }}</p>
+                <p style="margin-top: 16px;">{{ result.future_report_text }}</p>
             </div>
         </details>
 
@@ -113,7 +187,6 @@
                 <p>{{ result.summary }}</p>
             </div>
         </details>
-
     </div>
 
     <div class="result-actions">

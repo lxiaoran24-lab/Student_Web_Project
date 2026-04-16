@@ -3,67 +3,107 @@
 {% block title %}评估结果总览{% endblock %}
 
 {% block content %}
+{% macro score_row(label, score, desc) -%}
+<tr>
+    <td data-label="维度">
+        <span class="dimension-tag">
+            <span class="dimension-dot"></span>
+            {{ label }}
+        </span>
+    </td>
+    <td data-label="得分" class="score-num">{{ score }}</td>
+    <td data-label="进度">
+        <div class="meter-track">
+            <div class="meter-fill" style="width: {{ score }}%;"></div>
+        </div>
+    </td>
+    <td data-label="说明">{{ desc }}</td>
+</tr>
+{%- endmacro %}
+
 <div class="container">
     <div class="header">
         <div class="header-badge">测评结果</div>
         <h2>评估结果总览</h2>
-        <p>这里展示你的核心分数概览，完整文字报告请进入专属报告页查看。</p>
+        <p>这里展示核心分数与结构化结果概览，完整文字分析请进入专属报告页查看。</p>
     </div>
 
-    <div class="result-hero">
-        <div class="result-icon">📊</div>
-        <p class="result-level">综合得分：{{ result.overall_score }}</p>
-        <p class="result-sub">系统已完成各维度综合计算</p>
+    <div class="result-top-grid">
+        <section class="overview-card overview-card-primary">
+            <div class="overview-label">综合评估得分</div>
+            <div class="overview-score">
+                <strong>{{ result.overall_score }}</strong>
+                <span>分</span>
+            </div>
+            <p class="overview-desc">
+                系统已完成各维度综合计算。你可以先查看下方总览表，再进入详细报告阅读文字分析与建议。
+            </p>
+        </section>
+
+        <section class="metric-card">
+            <div class="metric-title">目标方向门类</div>
+            <div class="metric-value">{{ result.target_category_name }}</div>
+            <div class="metric-sub">对应未来发展分析方向</div>
+        </section>
+
+        <section class="metric-card">
+            <div class="metric-title">发展准备度</div>
+            <div class="metric-value">{{ result.future_readiness_score }}</div>
+            <div class="metric-sub">反映你当前的未来准备情况</div>
+        </section>
     </div>
 
-    <div class="score-grid">
-        <div class="score-cell">
-            <div class="score-cell-label">学业得分</div>
-            <div class="score-cell-val">{{ result.academic_score }}</div>
+    <section class="table-card">
+        <div class="table-card-header">
+            <div>
+                <h3 class="card-title">维度分数总览表</h3>
+                <p class="table-note">用表格和进度条集中展示主要结果，信息会更紧凑，不会显得太散。</p>
+            </div>
         </div>
-        <div class="score-cell">
-            <div class="score-cell-label">消费得分</div>
-            <div class="score-cell-val">{{ result.consumption_score }}</div>
-        </div>
-        <div class="score-cell">
-            <div class="score-cell-label">身体得分</div>
-            <div class="score-cell-val">{{ result.health_score }}</div>
-        </div>
-        <div class="score-cell">
-            <div class="score-cell-label">心理得分</div>
-            <div class="score-cell-val">{{ result.psychology_score }}</div>
-        </div>
-        <div class="score-cell">
-            <div class="score-cell-label">专业相似度</div>
-            <div class="score-cell-val">{{ result.future_score }}</div>
-        </div>
-        <div class="score-cell">
-            <div class="score-cell-label">发展准备度</div>
-            <div class="score-cell-val">{{ result.future_readiness_score }}</div>
-        </div>
-    </div>
 
-    <div class="section-card">
-        <p class="section-card-title">结果摘要</p>
-        <p class="section-card-body">{{ result.summary }}</p>
-    </div>
+        <table class="score-overview-table">
+            <thead>
+                <tr>
+                    <th>维度</th>
+                    <th>得分</th>
+                    <th>进度</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ score_row('学业表现', result.academic_score, '反映学习基础、投入情况与学业表现') }}
+                {{ score_row('消费结构', result.consumption_score, '反映支出结构、规划意识与消费状态') }}
+                {{ score_row('身体健康', result.health_score, '反映体质、作息、运动与总体健康情况') }}
+                {{ score_row('心理状态', result.psychology_score, '反映压力、情绪与心理健康状态') }}
+                {{ score_row('专业相似度', result.future_score, '反映当前专业与目标发展方向的匹配程度') }}
+                {{ score_row('发展准备度', result.future_readiness_score, '反映未来规划、准备与发展基础') }}
+            </tbody>
+        </table>
+    </section>
 
-    <div class="section-card">
-        <p class="section-card-title">未来发展概览</p>
-        <p class="section-card-body">
-            目标方向所属门类：{{ result.target_category_name }}<br>
-            专业相似度：{{ result.future_score }} 分<br>
-            未来发展准备度：{{ result.future_readiness_score }} 分
-        </p>
+    <div class="grid-2">
+        <section class="section-card">
+            <h3 class="section-card-title">结果摘要</h3>
+            <p class="section-card-body">{{ result.summary }}</p>
+        </section>
 
-        {% if result.career_recommendations %}
-        <p class="section-card-title" style="margin-top: 12px;">推荐关注的职业方向</p>
-        <ul class="result-list">
-            {% for item in result.career_recommendations %}
-            <li>{{ item }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+        <section class="section-card">
+            <h3 class="section-card-title">未来发展概览</h3>
+            <p class="section-card-body">
+                目标方向所属门类：{{ result.target_category_name }}<br>
+                专业相似度：{{ result.future_score }} 分<br>
+                未来发展准备度：{{ result.future_readiness_score }} 分
+            </p>
+
+            {% if result.career_recommendations %}
+            <h3 class="section-card-title" style="margin-top: 18px;">推荐关注的职业方向</h3>
+            <div class="chip-wrap">
+                {% for item in result.career_recommendations %}
+                <span class="chip">{{ item }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </section>
     </div>
 
     <div class="result-actions">

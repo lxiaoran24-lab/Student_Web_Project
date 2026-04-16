@@ -1,71 +1,74 @@
 {% extends "base.html" %}
-
 {% block title %}心理评估{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="header">
-        <div class="header-badge">在线评估</div>
-        <h2>心理状态模块</h2>
+        <div class="header-badge">在线评估</div><h2>心理状态模块</h2>
         <p>请根据你最近一段时间的真实学习与心理感受填写</p>
     </div>
-
-    <div class="section-header"><h2>第四部分</h2></div>
-
     <div class="progress-row">
-        <span class="progress-label">第 4 步 / 共 5 步</span>
-        <span class="tag">心理状态</span>
+        <span class="progress-label">第 4 步 / 共 5 步</span><span class="tag">心理状态</span>
     </div>
-    <div class="progress-bar">
-        <div class="progress-fill" style="width: 80%;"></div>
-    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
 
     <form method="post">
         <div class="q-card">
             <p class="q-text">以下问题将用于贝叶斯网络心理压力分析</p>
-
-            <label class="field-label">你目前的学业阶段</label>
-            <select class="input-field" name="acad_stage_var" required>
-                <option value="">请选择</option>
-                <option value="undergraduate" {% if data.get('acad_stage_var') == 'undergraduate' %}selected{% endif %}>本科生</option>
-                <option value="postgraduate" {% if data.get('acad_stage_var') == 'postgraduate' %}selected{% endif %}>研究生</option>
-                <option value="phd" {% if data.get('acad_stage_var') == 'phd' %}selected{% endif %}>博士生</option>
-            </select>
-
-            <label class="field-label">你感受到的同辈压力（1=很低，5=很高）</label>
-            <input class="input-field" type="number" step="1" min="1" max="5" name="peer_pressure" value="{{ data.get('peer_pressure', '') }}" required>
-
-            <label class="field-label">来自家庭的学业压力（1=很低，5=很高）</label>
-            <input class="input-field" type="number" step="1" min="1" max="5" name="home_pressure" value="{{ data.get('home_pressure', '') }}" required>
-
-            <label class="field-label">你当前的学习环境</label>
-            <select class="input-field" name="env_var" required>
-                <option value="">请选择</option>
-                <option value="Quiet" {% if data.get('env_var') == 'Quiet' %}selected{% endif %}>安静</option>
-                <option value="Moderate" {% if data.get('env_var') == 'Moderate' %}selected{% endif %}>一般</option>
-                <option value="Noisy" {% if data.get('env_var') == 'Noisy' %}selected{% endif %}>嘈杂</option>
-            </select>
-
-            <label class="field-label">面对学业压力时，你更常采用哪种应对方式</label>
-            <select class="input-field" name="cope_var" required>
-                <option value="">请选择</option>
-                <option value="Analyze the situation and handle it with intellect" {% if data.get('cope_var') == 'Analyze the situation and handle it with intellect' %}selected{% endif %}>理性分析并主动解决</option>
-                <option value="Talk to someone and seek support" {% if data.get('cope_var') == 'Talk to someone and seek support' %}selected{% endif %}>向他人倾诉并寻求支持</option>
-                <option value="Avoid thinking about it" {% if data.get('cope_var') == 'Avoid thinking about it' %}selected{% endif %}>回避问题，不太愿意面对</option>
-                <option value="Release emotions through entertainment" {% if data.get('cope_var') == 'Release emotions through entertainment' %}selected{% endif %}>通过娱乐、放松等方式排解</option>
-            </select>
-
-            <label class="field-label">你是否有抽烟、喝酒等不良习惯</label>
-            <select class="input-field" name="habit_var" required>
-                <option value="">请选择</option>
-                <option value="No" {% if data.get('habit_var') == 'No' %}selected{% endif %}>没有</option>
-                <option value="Yes" {% if data.get('habit_var') == 'Yes' %}selected{% endif %}>有</option>
-            </select>
-
-            <label class="field-label">你认为自己所处的学业竞争强度（1=很低，5=很高）</label>
-            <input class="input-field" type="number" step="1" min="1" max="5" name="compete_var" value="{{ data.get('compete_var', '') }}" required>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>你目前的学业阶段</th>
+                        <td>
+                            <select class="input-field" name="acad_stage_var" required>
+                                <option value="">请选择</option>
+                                <option value="undergraduate" {% if data.get('acad_stage_var') == 'undergraduate' %}selected{% endif %}>本科生</option>
+                                <option value="postgraduate" {% if data.get('acad_stage_var') == 'postgraduate' %}selected{% endif %}>研究生</option>
+                                <option value="phd" {% if data.get('acad_stage_var') == 'phd' %}selected{% endif %}>博士生</option>
+                            </select>
+                        </td>
+                        <th>同辈压力（1=低，5=高）</th>
+                        <td><input class="input-field" type="number" step="1" min="1" max="5" name="peer_pressure" value="{{ data.get('peer_pressure', '') }}" required></td>
+                    </tr>
+                    <tr>
+                        <th>家庭学业压力（1=低，5=高）</th>
+                        <td><input class="input-field" type="number" step="1" min="1" max="5" name="home_pressure" value="{{ data.get('home_pressure', '') }}" required></td>
+                        <th>当前学习环境</th>
+                        <td>
+                            <select class="input-field" name="env_var" required>
+                                <option value="">请选择</option>
+                                <option value="Quiet" {% if data.get('env_var') == 'Quiet' %}selected{% endif %}>安静</option>
+                                <option value="Moderate" {% if data.get('env_var') == 'Moderate' %}selected{% endif %}>一般</option>
+                                <option value="Noisy" {% if data.get('env_var') == 'Noisy' %}selected{% endif %}>嘈杂</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>学业压力应对方式</th>
+                        <td>
+                            <select class="input-field" name="cope_var" required>
+                                <option value="">请选择</option>
+                                <option value="Analyze the situation and handle it with intellect" {% if data.get('cope_var') == 'Analyze the situation and handle it with intellect' %}selected{% endif %}>理性分析并主动解决</option>
+                                <option value="Talk to someone and seek support" {% if data.get('cope_var') == 'Talk to someone and seek support' %}selected{% endif %}>向他人倾诉并寻求支持</option>
+                                <option value="Avoid thinking about it" {% if data.get('cope_var') == 'Avoid thinking about it' %}selected{% endif %}>回避问题</option>
+                                <option value="Release emotions through entertainment" {% if data.get('cope_var') == 'Release emotions through entertainment' %}selected{% endif %}>娱乐排解</option>
+                            </select>
+                        </td>
+                        <th>抽烟/喝酒等不良习惯</th>
+                        <td>
+                            <select class="input-field" name="habit_var" required>
+                                <option value="">请选择</option>
+                                <option value="No" {% if data.get('habit_var') == 'No' %}selected{% endif %}>没有</option>
+                                <option value="Yes" {% if data.get('habit_var') == 'Yes' %}selected{% endif %}>有</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>学业竞争强度（1=低，5=高）</th>
+                        <td><input class="input-field" type="number" step="1" min="1" max="5" name="compete_var" value="{{ data.get('compete_var', '') }}" required></td>
+                        <td colspan="2"></td> </tr>
+                </tbody>
+            </table>
         </div>
-
         <div class="actions">
             <a class="btn" href="{{ url_for('assessment_health') }}">← 上一步</a>
             <button class="btn primary" type="submit">下一页 →</button>

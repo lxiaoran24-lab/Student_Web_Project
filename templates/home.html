@@ -4,39 +4,87 @@
 
 {% block content %}
 <div class="container-narrow">
-    <section class="hero-card">
-        <div class="header">
-            <div class="header-badge">项目首页</div>
-            <h2>欢迎使用学生状态综合评估系统</h2>
-            <p>通过分步填写问卷，系统将对你的学业、消费、身体健康、心理状态和未来发展方向进行综合分析。</p>
-        </div>
+    <section class="hero-card home-hero">
+        <div class="hero-split">
+            <div class="hero-copy">
+                <div class="header-badge">项目首页</div>
+                <h1>欢迎使用学生状态综合评估系统</h1>
+                <p>
+                    通过分步填写问卷，系统将对你的学业、消费、身体健康、心理状态和未来发展方向进行综合分析，
+                    帮助你更直观地理解个人状态，并生成可查看的结果总览与文字报告。
+                </p>
 
-        <div class="intro-grid">
-            <div class="intro-block">
-                <h3>系统包含</h3>
-                <ul class="plain-list">
-                    <li>学业表现评估</li>
-                    <li>消费结构评估</li>
-                    <li>身体健康评估</li>
-                    <li>心理状态评估</li>
-                    <li>未来发展与专业相似度分析</li>
-                    <li>未来发展准备度与职业方向建议</li>
-                </ul>
+                <div class="hero-pills">
+                    <span class="pill">蓝色可视化风格</span>
+                    <span class="pill">多维度综合评估</span>
+                    <span class="pill">即时生成结果报告</span>
+                </div>
+
+                <div class="result-actions">
+                    <a class="btn primary" href="{{ url_for('assessment_start') }}">开始评估</a>
+                </div>
             </div>
 
-            <div class="intro-block">
-                <h3>当前版本说明</h3>
-                <ul class="plain-list">
-                    <li>当前为公开演示版，无需登录即可使用</li>
-                    <li>适合展示完整评估与报告流程</li>
-                    <li>结果可立即查看，但暂不做个人历史记录长期保存</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="result-actions center">
-            <a class="btn primary" href="{{ url_for('assessment_start') }}">开始评估</a>
+            <aside class="hero-side-card">
+                <div>
+                    <div class="hero-side-title">本系统聚焦的评估模块</div>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-item-label">学业表现</span>
+                            <span class="info-item-value">Academic</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">消费结构</span>
+                            <span class="info-item-value">Consumption</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">身体健康</span>
+                            <span class="info-item-value">Health</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">心理状态</span>
+                            <span class="info-item-value">Psychology</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">未来发展</span>
+                            <span class="info-item-value">Future</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
     </section>
+
+    <div class="intro-grid">
+        <section class="intro-block">
+            <h3>系统包含</h3>
+            <ul class="plain-list">
+                <li>学业表现评估</li>
+                <li>消费结构评估</li>
+                <li>身体健康评估</li>
+                <li>心理状态评估</li>
+                <li>未来发展与专业相似度分析</li>
+                <li>未来发展准备度与职业方向建议</li>
+            </ul>
+        </section>
+
+        <section class="intro-block">
+            <h3>当前版本说明</h3>
+            <ul class="plain-list">
+                <li>当前为公开演示版，无需登录即可使用</li>
+                <li>适合展示完整评估与报告流程</li>
+                <li>结果可立即查看，但暂不做个人历史记录长期保存</li>
+            </ul>
+        </section>
+
+        <section class="intro-block">
+            <h3>使用流程</h3>
+            <ul class="plain-list">
+                <li>进入问卷并依次完成各模块填写</li>
+                <li>系统自动进行多维度综合分析</li>
+                <li>先查看结果总览，再阅读详细报告</li>
+            </ul>
+        </section>
+    </div>
 </div>
 {% endblock %}
